@@ -25,7 +25,7 @@ module.exports = {
         try {
             const thoughtData = await Thought.create(req.body);
             const userData = await User.findOneAndUpdate(
-                { _id: req.body.username },
+                { username: req.body.username },
                 { $addToSet: { thoughts: thoughtData } },
                 { new: true }
             );
@@ -34,10 +34,11 @@ module.exports = {
             }
             res.json(thoughtData);
         } catch(err) {
+            console.log(err);
             res.status(500).json(err);
         }
     },
-    async updateThought(req, res) {
+    async updateThought (req, res) {
         try {
             const thoughtData = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
@@ -54,7 +55,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    async deleteThought(req, res) {
+    async deleteThought (req, res) {
         try {
             const thoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId })
             const userData = await User.findOneAndUpdate(
@@ -76,7 +77,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    async addReaction(req, res) {
+    async addReaction (req, res) {
         try {
             const thoughtData = await Thought.findOne({ _id: req.params.thoughtId });
             const userData = await User.findOne({ _id: thoughtData.username });
@@ -96,7 +97,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    async deleteReaction(req, res) {
+    async deleteReaction (req, res) {
         try {
             const thoughtData = await Thought.findOneAndUpdate(
                 { _id: thoughtData.username },

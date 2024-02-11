@@ -1,5 +1,25 @@
-const { Schema, model } = require('mongoose');
-const Reaction = require('./Reaction');
+const { Schema, model, Types } = require('mongoose');
+const Mongoose = require('mongoose');
+
+const reactionModel = new Schema({
+    reactionId: {
+        type: Types.ObjectId,
+        default: new Mongoose.Types.ObjectId()
+    },
+    reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    }
+});
 
 const thoughtModel = new Schema({
     thoughtText: {
@@ -17,7 +37,7 @@ const thoughtModel = new Schema({
         ref: 'user',
         required: true
     },
-    reactions: [Reaction]
+    reactions: [reactionModel]
 },
 {
     toJSON: {
@@ -26,7 +46,7 @@ const thoughtModel = new Schema({
     id: false,
 });
 
-thoughtModel.virtual('CreatedThoughtDate').get(function () {
+thoughtModel.virtual('CreatedOnDate').get(function () {
     return this.createdAt.toISOString();
 });
 

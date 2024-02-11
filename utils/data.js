@@ -4,7 +4,7 @@ const users = [
 ]
 
 for (let i = 0; i < 10; i++) {
-    usernames.push({ username: `user${i}`, email: `user${i}@numbers.com`})
+    users.push({ username: `user${i}`, email: `user${i}@numbers.com`})
 }
 
 function addThoughts(users) {

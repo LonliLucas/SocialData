@@ -17,7 +17,7 @@ module.exports = {
             if(!user) {
                 return res.status(404).json({ message: 'No User Found!' });
             }
-            res.json*(user);
+            res.json(user);
         } catch(err) {
             res.status(500).json(err);
         }
